@@ -1,6 +1,9 @@
 name: "List tags history"
 description: "List recent tags from a repository"
 inputs:
+  token:
+    description: "Github Token"
+    required: true
   limit:
     description: "Limit of tags to list"
     default: "10"
@@ -13,7 +16,7 @@ runs:
   steps:
     - uses: actions/github-script@v3
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ inputs.token }}
         script: |
           const repository = ${{ github.repository }};
 
