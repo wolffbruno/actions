@@ -11,10 +11,12 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # script
-    - uses: actions/script@v1
+    - uses: actions/github-script@v3
       with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
+          const repository = ${{ github.repository }};
+
             const response = await github.graphql({
                 query: `
                   {
