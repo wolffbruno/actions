@@ -4,17 +4,24 @@ inputs:
   token:
     description: "Github Token"
     required: true
+  query:
+    description: "Query to filter tags"
+    default: "*"
   limit:
     description: "Limit of tags to list"
     default: "10"
-#outputs:
-#  random-number:
-#    description: "Random number"
-#    value: ${{ steps.random-number-generator.outputs.random-number }}
+outputs:
+  current-tag:
+    description: "Current tag"
+    value: ${{ steps.get-tags-history.outputs.current-tag }}
+  latest-tag:
+    description: "Latest tag"
+    value: ${{ steps.get-tags-history.outputs.latest-tag }}
 runs:
   using: "composite"
   steps:
     - uses: actions/github-script@v6
+      id: get-tags-history
       with:
         github-token: ${{ inputs.token }}
         script: |
@@ -22,8 +29,8 @@ runs:
 
           const query = `{
               repository(owner: "${owner}", name: "${repositoryName}") {
-                  refs(refPrefix: "refs/tags/", query: "prod*"
-                  , first: 10, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
+                  refs(refPrefix: "refs/tags/", query: "${inputs.prefix}"
+                  , first: ${inputs.limit}, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
                       edges {
                           node {
                               name
