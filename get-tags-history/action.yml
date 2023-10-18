@@ -1,0 +1,15 @@
+name: "List tags history"
+description: "List recent tags from a repository"
+inputs:
+  limit:
+    description: "Limit of tags to list"
+    default: "10"
+#outputs:
+#  random-number:
+#    description: "Random number"
+#    value: ${{ steps.random-number-generator.outputs.random-number }}
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hi, ${{ github.repository }}
+      shell: bash
