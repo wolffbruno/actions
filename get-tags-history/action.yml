@@ -21,7 +21,7 @@ runs:
           const [owner, repositoryName] = "${{github.repository}}".split("/");
 
           const query = `{
-              repository(owner: ${owner}, name: ${repositoryName}) {
+              repository(owner: "${owner}", name: "${repositoryName}") {
                   refs(refPrefix: "refs/tags/", query: "prod*"
                   , first: 10, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
                       edges {
