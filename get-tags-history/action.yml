@@ -6,7 +6,7 @@ inputs:
     required: true
   query:
     description: "Query to filter tags"
-    default: "*"
+    default: ""
   limit:
     description: "Limit of tags to list"
     default: "10"
@@ -29,7 +29,7 @@ runs:
 
           const query = `{
               repository(owner: "${owner}", name: "${repositoryName}") {
-                  refs(refPrefix: "refs/tags/", query: "${{inputs.prefix}}"
+                  refs(refPrefix: "refs/tags/", query: "${{inputs.query}}"
                   , first: ${{inputs.limit}}, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
                       edges {
                           node {
