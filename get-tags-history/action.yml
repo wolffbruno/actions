@@ -18,7 +18,7 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         script: |
-          const [owner, repositoryName] = github.repository.split("/");
+          const [owner, repositoryName] = "${{github.repository}}".split("/");
 
           const query = `{
               repository(owner: ${owner}, name: ${repositoryName}) {
