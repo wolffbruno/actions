@@ -18,8 +18,9 @@ runs:
       with:
         github-token: ${{ inputs.token }}
         script: |
-          const repository = "${{ github.repository }}";
-          const repositoryName = "${{ github.owner }}";
+          const repositoryName = "${{ github.repository }}";
+          const owner = "${{ github.owner }}";
+          
           const query = `{
               repository(owner: ${owner}, name: ${repositoryName}) {
                   refs(refPrefix: "refs/tags/", query: "prod*"
