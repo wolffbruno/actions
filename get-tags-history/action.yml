@@ -17,6 +17,7 @@ outputs:
   latest-tag:
     description: "Latest tag"
     value: ${{ steps.get-tags-history.outputs.latest-tag }}
+
 runs:
   using: "composite"
   steps:
@@ -58,4 +59,8 @@ runs:
 
           const tagsHistory = graphQLResponse?.repository?.refs?.edges || [];
 
-          console.info(tagsHistory);
+          const currentTag = tagsHistory[0]?.node?.name || "";
+          const latestTag = tagsHistory[tagsHistory.length - 1]?.node?.name || "";
+
+          core.setOutput("current-tag", currentTag);
+          core.setOutput("latest-tag", latestTag);
