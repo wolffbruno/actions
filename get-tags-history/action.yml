@@ -29,8 +29,8 @@ runs:
 
           const query = `{
               repository(owner: "${owner}", name: "${repositoryName}") {
-                  refs(refPrefix: "refs/tags/", query: "${inputs.prefix}"
-                  , first: ${inputs.limit}, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
+                  refs(refPrefix: "refs/tags/", query: "${{inputs.prefix}}"
+                  , first: ${{inputs.limit}}, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
                       edges {
                           node {
                               name
