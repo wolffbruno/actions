@@ -61,7 +61,7 @@ runs:
           const tagsHistory = graphQLResponse?.repository?.refs?.edges || [];
 
           const currentTag = tagsHistory[0]?.node?.name || "";
-          const latestTag = tagsHistory[tagsHistory.length - 1]?.node?.name || "";
+          const latestTag = tagsHistory[1]?.node?.name || "";
 
           core.setOutput("current-tag", `${refPrefix}${currentTag}`);
           core.setOutput("latest-tag", `${refPrefix}${latestTag}`);
