@@ -27,10 +27,11 @@ runs:
         github-token: ${{ inputs.token }}
         script: |
           const [owner, repositoryName] = "${{github.repository}}".split("/");
+          const refPrefix = "refs/tags/";
 
           const query = `{
               repository(owner: "${owner}", name: "${repositoryName}") {
-                  refs(refPrefix: "refs/tags/", query: "${{inputs.query}}"
+                  refs(refPrefix: "${refPrefix}", query: "${{inputs.query}}"
                   , first: ${{inputs.limit}}, orderBy: {field: TAG_COMMIT_DATE, direction: DESC}) {
                       edges {
                           node {
@@ -62,5 +63,5 @@ runs:
           const currentTag = tagsHistory[0]?.node?.name || "";
           const latestTag = tagsHistory[tagsHistory.length - 1]?.node?.name || "";
 
-          core.setOutput("current-tag", currentTag);
-          core.setOutput("latest-tag", latestTag);
+          core.setOutput("current-tag", `${refPrefix}${currentTag}`);
+          core.setOutput("latest-tag", `${refPrefix}${latestTag}`);
